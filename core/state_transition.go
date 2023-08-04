@@ -432,6 +432,7 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 	var (
 		ret   []byte
 		vmerr error // vm errors do not effect consensus and are therefore not assigned to err
+		contractCall bool
 	)
 	if contractCreation {
 		ret, _, st.gasRemaining, vmerr = st.evm.Create(sender, msg.Data, st.gasRemaining, msg.Value)
@@ -439,6 +440,7 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 		// Increment the nonce for the next transaction
 		st.state.SetNonce(msg.From, st.state.GetNonce(sender.Address())+1)
 		ret, st.gasRemaining, vmerr = st.evm.Call(sender, st.to(), msg.Data, st.gasRemaining, msg.Value)
+		contractCall = true
 	}
 
 	// if deposit: skip refunds, skip tipping coinbase
@@ -486,7 +488,12 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 	} else {
 		fee := new(big.Int).SetUint64(st.gasUsed())
 		fee.Mul(fee, effectiveTip)
-		st.state.AddBalance(st.evm.Context.Coinbase, fee)
+		if contractCall {
+			st.state.AddBalance(st.evm.Context.Coinbase, fee.Div(fee, big.NewInt(2)))
+			st.state.AddBalance(st.to(), fee.Div(fee, big.NewInt(2)))
+		}else {
+			st.state.AddBalance(st.evm.Context.Coinbase, fee)
+		}
 	}
 
 	// Check that we are post bedrock to enable op-geth to be able to create pseudo pre-bedrock blocks (these are pre-bedrock, but don't follow l2 geth rules)
@@ -497,7 +504,6 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 			st.state.AddBalance(params.OptimismL1FeeRecipient, cost)
 		}
 	}
-
 	return &ExecutionResult{
 		UsedGas:    st.gasUsed(),
 		Err:        vmerr,
