@@ -149,3 +149,24 @@ func TrimRightZeroes(s []byte) []byte {
 	}
 	return s[:idx]
 }
+
+func GetRightmost(slice []byte, l int) []byte {
+	if l > len(slice) {
+		l = len(slice)
+	}
+
+	start := len(slice) - l
+	result := make([]byte, l)
+	copy(result, slice[start:])
+
+	return result
+}
+
+func IsZeroBytes(slice []byte) bool {
+	for _, b := range slice {
+		if b != 0 {
+			return false
+		}
+	}
+	return true
+}

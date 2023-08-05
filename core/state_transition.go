@@ -491,12 +491,21 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 		fee := new(big.Int).SetUint64(st.gasUsed())
 		fee.Mul(fee, effectiveTip)
 		if contractCall {
-			rewards_hash := common.Hash{175, 246, 42, 12, 244, 152, 116, 163, 109, 10, 133, 218, 239, 226, 24, 169, 111, 178, 68, 35, 125, 2, 152, 252, 105, 225, 80, 136, 141, 91, 92, 132}
-			rewards_address := st.evm.StateDB.GetState(st.to(), rewards_hash)
-			log.Info("storage RAFAEL", rewards_address.String())
+			var reward_address common.Address
 
-			st.state.AddBalance(st.evm.Context.Coinbase, fee.Div(fee, big.NewInt(2)))
-			st.state.AddBalance(st.to(), fee.Div(fee, big.NewInt(2)))
+			rewards_hash := common.Hash{175, 246, 42, 12, 244, 152, 116, 163, 109, 10, 133, 218, 239, 226, 24, 169, 111, 178, 68, 35, 125, 2, 152, 252, 105, 225, 80, 136, 141, 91, 92, 132}
+			storage_values := st.evm.StateDB.GetState(st.to(), rewards_hash)
+
+			copy(reward_address[:], common.GetRightmost(storage_values[:], 20))
+			log.Info("REWARDS RAFAEL ADDRESS", reward_address.String())
+
+			if common.IsZeroBytes(reward_address[:]) {
+				st.state.AddBalance(st.evm.Context.Coinbase, fee)
+			} else {
+				st.state.AddBalance(st.evm.Context.Coinbase, fee.Div(fee, big.NewInt(2)))
+				st.state.AddBalance(reward_address, fee.Div(fee, big.NewInt(2)))
+			}
+
 		} else {
 			st.state.AddBalance(st.evm.Context.Coinbase, fee)
 		}
