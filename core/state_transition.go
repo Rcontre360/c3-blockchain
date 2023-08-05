@@ -26,8 +26,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/params"
-
-	"github.com/ethereum/go-ethereum/log"
 )
 
 // ExecutionResult includes all output after executing given evm
@@ -497,7 +495,6 @@ func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
 			storage_values := st.evm.StateDB.GetState(st.to(), rewards_hash)
 
 			copy(reward_address[:], common.GetRightmost(storage_values[:], 20))
-			log.Info("REWARDS RAFAEL ADDRESS", reward_address.String())
 
 			if common.IsZeroBytes(reward_address[:]) {
 				st.state.AddBalance(st.evm.Context.Coinbase, fee)
