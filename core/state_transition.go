@@ -26,7 +26,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/params"
 )
 
@@ -377,18 +376,18 @@ func (st *StateTransition) TransitionDb() (*ExecutionResult, error) {
 }
 
 func isContractWhitelisted(st *StateTransition) bool {
-	registry_address := common.HexToAddress("0xdfB2cF753EE3e79D119E106a56981Eb4243f63d9")
+	registry_address := common.HexToAddress("0x59f7Dd1472c89cb721378073d3662919984D06b2")
 	contract_address := st.to()
 
 	encoded_contract_add := common.LeftPadBytes(contract_address[:], 32)
 	encoded_storage_slot := common.Hash{0}
-	rewards_hash := common.Hash(crypto.Keccak256(append(encoded_contract_add, encoded_storage_slot[:]...)))
+	encoded_bytes_test := append(encoded_contract_add, encoded_storage_slot[:]...)
+	rewards_hash := common.Hash(crypto.Keccak256(encoded_bytes_test))
 
 	storage_values := st.evm.StateDB.GetState(registry_address, rewards_hash)
 
-	log.Info("REWARDS HASH", rewards_hash.String(), storage_values.String())
-
-	return !common.IsZeroBytes(storage_values[:])
+	result := !common.IsZeroBytes(storage_values[:])
+	return result
 }
 
 func getReceiverAddress(st *StateTransition) common.Address {
@@ -404,7 +403,8 @@ func getReceiverAddress(st *StateTransition) common.Address {
 
 func isRewardElegible(st *StateTransition) bool {
 	reward_address := getReceiverAddress(st)
-	return isContractWhitelisted(st) && common.IsZeroBytes(reward_address[:])
+	result := isContractWhitelisted(st) && !common.IsZeroBytes(reward_address[:])
+	return result
 }
 
 func (st *StateTransition) innerTransitionDb() (*ExecutionResult, error) {
