@@ -9,3 +9,6 @@
 [submodule "optimism"]
 	path = optimism
 	url = https://github.com/Rcontre360/optimism.git
+[submodule "world-id-state-bridge"]
+	path = world-id-state-bridge
+	url = https://github.com/Rcontre360/world-id-state-bridge.git
