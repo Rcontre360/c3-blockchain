@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,7 +15,7 @@ module.exports = {
       },
     },
   },
-  colors: ({ colors }) => ({
+  colors: ({ colors }: any) => ({
     primary: "var(--color-primary)",
     "primary-disabled": "var(--color-primary-disabled)",
     "red-primary": "var(--color-red-primary)",
@@ -40,7 +41,6 @@ module.exports = {
         10: "var(--color-gray-500-opacity-10)",
       },
     },
-    white: "var(--color-white)",
     dark: "var(--color-dark)",
     "transparent-color": {
       gray: {
@@ -57,7 +57,6 @@ module.exports = {
     black: colors.black,
     white: colors.white,
     slate: colors.slate,
-    gray: colors.gray,
     zinc: colors.zinc,
     neutral: colors.neutral,
     stone: colors.stone,
@@ -81,3 +80,4 @@ module.exports = {
   }),
   plugins: [],
 };
+export default config;
