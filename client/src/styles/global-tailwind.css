@@ -3,10 +3,10 @@
 
 :root {
   --color-primary: #6545f3;
-  --color-primary-disabled: #a1a5b7;
-  --color-primary-opacity: #2c2c41;
+  --color-primary-disabled: #2c2c41;
+  --color-primary-opacity: #d9d9d914;
   --color-red-primary: #ea1701;
-  --color-secondary: #0b0b0b;
+  --color-secondary: #a1a5b7;
   --color-overlay: #030202;
   --color-overlay-2: #7e8299;
   --color-overlay-3: #030406;
