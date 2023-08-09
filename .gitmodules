@@ -1,8 +1,8 @@
 [submodule "tests"]
-	path = tests/testdata
+	path = op-geth/tests/testdata
 	url = https://github.com/ethereum/tests
 	shallow = true
 [submodule "evm-benchmarks"]
-	path = tests/evm-benchmarks
+	path = op-geth/tests/evm-benchmarks
 	url = https://github.com/ipsilon/evm-benchmarks
 	shallow = true
