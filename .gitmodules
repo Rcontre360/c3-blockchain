@@ -6,3 +6,6 @@
 	path = op-geth/tests/evm-benchmarks
 	url = https://github.com/ipsilon/evm-benchmarks
 	shallow = true
+[submodule "optimism"]
+	path = optimism
+	url = https://github.com/Rcontre360/optimism.git
