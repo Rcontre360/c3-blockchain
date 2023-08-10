@@ -3,7 +3,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Zoom } from "swiper/modules";
+import { Autoplay, Navigation, Zoom } from "swiper/modules";
 import Link from "next/link";
 
 const SliderHome = () => {
@@ -12,17 +12,15 @@ const SliderHome = () => {
       slidesPerView={1}
       onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper: any) => console.log(swiper)}
+      autoplay={{ delay: 4000 }}
       zoom={true}
       slidePrevClass=".swiper-button-prev"
-      navigation={{
-        enabled: true,
-        nextEl: ".swiper-button-next",
-        prevEl: "",
-      }}
+      navigation={true}
+      speed={2500}
       initialSlide={0}
-      modules={[Zoom, Navigation]}
+      modules={[Autoplay, Zoom, Navigation]}
       loop
-      className="mySwiper w-3/4"
+      className="mySwiper xl:w-3/4 w-full"
       spaceBetween={10}
     >
       <div className="flex items-center justify-center gap-2">
@@ -32,7 +30,7 @@ const SliderHome = () => {
             description:
               "Discover C3 unparalleled features and advantages tailored just for you",
             image: "/img/slider/slider-1.png",
-            link: "",
+            link: "/#what_we_offer",
           },
           {
             name: "Get to know the passionate minds behind its innovation and uncover the exceptional  advantages they have crafted for you",
@@ -56,7 +54,7 @@ const SliderHome = () => {
                 <div className="flex flex-col relative w-full rounded-3xl border border-white h-96 overflow-hidden">
                   <img src={image} alt={name} className="h-full w-full" />
                   <div className="opacity-[0.1] bg-primary h-full w-full absolute top-0"></div>{" "}
-                  <h2 className="absolute bottom-7 lg:px-16 px-8 text-[30px] font-bold text-white">
+                  <h2 className="absolute bottom-7 lg:px-16 px-8 lg:text-[30px] text-[15px] font-bold text-white lg:text-left text-center">
                     {name}{" "}
                     {description ? (
                       <>

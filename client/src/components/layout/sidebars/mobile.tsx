@@ -26,7 +26,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
         <Dialog
           as="div"
           static
-          className="fixed h-[calc(100vh-56px)] top-[56px] w-screen flex z-40 md:hidden bg-overlay"
+          className="fixed h-[calc(100vh-70px)] top-[70px] w-60 flex z-40 md:hidden bg-overlay"
           open={sidebarOpen}
           onClose={() => {
             setSidebarOpen(false);
@@ -42,7 +42,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed top-[56px] inset-0 z-0 blur-xl w-screen h-[calc(100vh-56px)]" />
+            <Dialog.Overlay className="fixed top-[70px] inset-0 z-0 blur-xl w-screen h-[calc(100vh-70px)]" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -53,7 +53,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="bg-secondary relative flex-1 flex flex-col w-screen">
+            <div className="bg-overlay relative flex-1 flex flex-col w-screen">
               <div className="flex-1 h-0 pt-6 pb-4 overflow-y-auto">
                 <nav className="flex-1 px-7">
                   {navItems.map((item: any, index: number) => {

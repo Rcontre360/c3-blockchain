@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 /* eslint-disable @next/next/no-img-element */
 export const DescriptionSection = ({
+  id,
   title,
   description,
   image,
@@ -10,20 +11,25 @@ export const DescriptionSection = ({
 }: any) => {
   return (
     <div
+      id={id}
       className={clsx(
         { ["xl:flex-row "]: imageLeft },
         { ["xl:flex-row-reverse"]: !imageLeft },
-        "flex flex-col xl:gap-20 gap-8 items-center justify-between py-20 3xl:px-40 relative",
+        "flex flex-col xl:gap-20 gap-8 items-center xl:justify-between justify-center py-20 3xl:px-40 relative",
       )}
     >
       <div
         className={clsx(
-          { "pr-20": imageLeft },
-          { "pl-20": !imageLeft },
-          "shrink-0 xl:!w-[600px]",
+          { "xl:pr-20": imageLeft },
+          { "xl:pl-20": !imageLeft },
+          "shrink-0 xl:!w-[600px] flex items-center justify-center xl:static relative",
         )}
       >
-        <img src={image} className="xl:!w-[450px] w-full relative" alt="" />
+        <img
+          src={image}
+          className="xl:!w-[450px] sm:w-2/3 w-full relative"
+          alt=""
+        />
         <img
           src="/img/blur.png"
           className={clsx(
@@ -34,16 +40,18 @@ export const DescriptionSection = ({
           alt=""
         />
       </div>
-      <div className="w-full flex flex-col items-start gap-12 relative">
-        <h2 className="text-[60px] font-[500] text-white">{title}</h2>
+      <div className="w-full flex flex-col xl:items-start items-center gap-12 relative">
+        <h2 className="text-[60px] md:text-[40px]font-[500] text-white xl:text-left text-center">
+          {title}
+        </h2>
         <p
-          className="text-[20px] text-secondary"
+          className="text-[20px] text-secondary xl:text-left text-center"
           style={{ lineHeight: "40px" }}
         >
           {description}
         </p>
         {buttons?.length && (
-          <div className="flex gap-10">
+          <div className="flex gap-10 xl:justify-start justify-center">
             {buttons?.map((button: any) => button)}
           </div>
         )}
