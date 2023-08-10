@@ -54,7 +54,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
         className={clsx(
           "fixed top-0",
           "bg-overlay",
-          "w-[100%] md:px-10 px-4 py-6 flex items-center justify-between gap-x-4 shadow-md",
+          "w-[100%] z-[10] md:px-10 px-4 py-6 flex items-center justify-between gap-x-4 shadow-md",
         )}
       >
         <Logo />

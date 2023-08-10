@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.swiper-button-prev {
+  background-image: url("/public/img/slider/leftArrow.png") !important;
+}
+
+.swiper-button-next {
+  background-image: url("/public/img/slider/rightArrow.png") !important;
+}
