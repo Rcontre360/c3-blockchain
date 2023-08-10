@@ -60,7 +60,7 @@ const Main = () => {
             href="https://app.gitbook.com/o/zBVBDgxdpx2OqHpx4XRL/s/fO5dcc4fxHhjkAFSVgqW/"
             target="_blank"
             key={0}
-            className="flex items-center justify-center bg-primary rounded-xl font-[500] gap-4 whitespace-nowrap text-white py-4 px-16"
+            className="flex items-center justify-center bg-primary rounded-xl font-[500] gap-4 whitespace-nowrap text-white py-2 px-8"
           >
             Open Docs <LinkIcon className="h-4" />
           </a>,
@@ -68,7 +68,7 @@ const Main = () => {
             href="https://app.gitbook.com/o/zBVBDgxdpx2OqHpx4XRL/s/fO5dcc4fxHhjkAFSVgqW/"
             target="_blank"
             key={1}
-            className="flex items-center justify-center bg-overlay rounded-xl font-[500] gap-4 whitespace-nowrap text-white py-4 px-16"
+            className="flex items-center justify-center bg-overlay rounded-xl font-[500] border border-white gap-4 whitespace-nowrap text-white py-2 px-8"
           >
             Learn More <LinkIcon className="h-4" />
           </a>,

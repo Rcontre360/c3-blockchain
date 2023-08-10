@@ -35,7 +35,7 @@ const WhatWeOffer = () => {
           <img src="/img/details/detail4.png" className="w-60" alt="" />
         </div>
       </div>
-      <h2 className="text-[60px] md:text-[40px]font-[500] text-white text-center">
+      <h2 className="xl:text-[60px] md:text-[40px] text-[35px] font-[500] text-white text-center">
         What C3 offers to you
       </h2>
       <div className="xl:flex hidden justify-between 3xl:w-2/3 2xl:w-3/4 xl:w-4/5 w-full gap-10">

@@ -14,10 +14,10 @@ const BuiltForCreators = () => {
       </div>
 
       <div className="w-full flex flex-col justify-center items-center gap-12 lg:py-60 py-32 xl:px-28 md:px-16 sm:px-8 px-4 relative overflow-hidden">
-        <h2 className="text-[60px] md:text-[40px] font-[500] text-white text-center">
+        <h2 className="xl:text-[60px] md:text-[40px] text-[35px] font-[500] text-white text-center">
           Built for creators Growth
         </h2>
-        <p className="text-[24px] text-secondary font-[500] w-2/3 text-center">
+        <p className="xl:text-[24px] text-[16px] text-secondary font-[500] w-2/3 text-center">
           C3 Mainnet focuses on the creators economy, specifically those who
           build products that make the C3 ecosystem better
         </p>

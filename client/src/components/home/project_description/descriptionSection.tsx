@@ -15,7 +15,7 @@ export const DescriptionSection = ({
       className={clsx(
         { ["xl:flex-row "]: imageLeft },
         { ["xl:flex-row-reverse"]: !imageLeft },
-        "flex flex-col xl:gap-20 gap-8 items-center xl:justify-between justify-center py-20 3xl:px-40 relative",
+        "flex flex-col xl:gap-20 md:gap-8 gap-2 items-center xl:justify-between justify-center xl:py-20 py-4 3xl:px-40 relative",
       )}
     >
       <div
@@ -25,11 +25,7 @@ export const DescriptionSection = ({
           "shrink-0 xl:!w-[600px] flex items-center justify-center xl:static relative",
         )}
       >
-        <img
-          src={image}
-          className="xl:!w-[450px] sm:w-2/3 w-full relative"
-          alt=""
-        />
+        <img src={image} className="xl:!w-[450px] w-2/3 relative" alt="" />
         <img
           src="/img/blur.png"
           className={clsx(
@@ -41,17 +37,14 @@ export const DescriptionSection = ({
         />
       </div>
       <div className="w-full flex flex-col xl:items-start items-center gap-12 relative">
-        <h2 className="text-[60px] md:text-[40px]font-[500] text-white xl:text-left text-center">
+        <h2 className="xl:text-[60px] md:text-[40px]  text-[35px] font-[500] text-white xl:text-left text-center">
           {title}
         </h2>
-        <p
-          className="text-[20px] text-secondary xl:text-left text-center"
-          style={{ lineHeight: "40px" }}
-        >
+        <p className="md:text-[20px] text-[12px] text-secondary xl:text-left text-center">
           {description}
         </p>
         {buttons?.length && (
-          <div className="flex gap-10 xl:justify-start justify-center">
+          <div className="flex xl:flex-row flex-col xl:gap-10 gap-4 xl:justify-start justify-center">
             {buttons?.map((button: any) => button)}
           </div>
         )}
