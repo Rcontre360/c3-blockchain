@@ -21,9 +21,12 @@ build/_vendor/pkg
 *~
 .project
 .settings
+build
+datadir
 
 # used by the Makefile
 /op-geth/build/_workspace/
+/op-geth/genesis.json
 /op-geth/build/cache/
 /op-geth/build/bin/
 /op-geth/geth*.zip

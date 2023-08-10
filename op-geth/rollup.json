@@ -1,0 +1,29 @@
+{
+  "genesis": {
+    "l1": {
+      "hash": "0x6ffc1bf3754c01f6bb9fe057c1578b87a8571ce2e9be5ca14bace6eccfd336c7",
+      "number": 8300214
+    },
+    "l2": {
+      "hash": "0x64cb90274207ce91da5a8539047a53987ac230fd1df038a75b4f9a32f7e9e406",
+      "number": 0
+    },
+    "l2_time": 1673550516,
+    "system_config": {
+      "batcherAddr": "0x7431310e026b69bfc676c0013e12a1a11411eec9",
+      "overhead": "0x0000000000000000000000000000000000000000000000000000000000000834",
+      "scalar": "0x00000000000000000000000000000000000000000000000000000000000f4240",
+      "gasLimit": 25000000
+    }
+  },
+  "block_time": 2,
+  "max_sequencer_drift": 600,
+  "seq_window_size": 3600,
+  "channel_timeout": 300,
+  "l1_chain_id": 5,
+  "l2_chain_id": 42069,
+  "batch_inbox_address": "0xff00000000000000000000000000000000000420",
+  "deposit_contract_address": "0x5b47e1a08ea6d985d6649300584e6722ec4b1383",
+  "worldcoin_contract_address": "0x5b47e1a08ea6d985d6649300584e6722ec4b1383",
+  "l1_system_config_address": "0xae851f927ee40de99aabb7461c00f9622ab91d60"
+}
