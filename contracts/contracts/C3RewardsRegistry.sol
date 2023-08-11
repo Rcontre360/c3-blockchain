@@ -16,6 +16,8 @@ contract C3RewardsRegistry {
 
     mapping(address => bool) public rewardReceivers;
 
+    address[] public allReceivers;
+
     /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
     mapping(uint256 => bool) internal nullifierHashes;
 
@@ -66,12 +68,28 @@ contract C3RewardsRegistry {
         // We now record the user has done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
         rewardReceivers[receiver] = true;
+        allReceivers.push(receiver);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
     }
 
     function mockRegister(address receiver, bool shouldReceive) public {
+        if (shouldReceive) allReceivers.push(receiver);
+        else {
+            uint256 index = 0;
+            for (uint256 i = 0; i < allReceivers.length; i++) {
+                if (receiver == allReceivers[i]) {
+                    index = i;
+                }
+            }
+            allReceivers[index] = allReceivers[allReceivers.length - 1];
+            allReceivers.pop();
+        }
         rewardReceivers[receiver] = shouldReceive;
+    }
+
+    function getAllRegisters() public view returns (address[] memory) {
+        return allReceivers;
     }
 }
