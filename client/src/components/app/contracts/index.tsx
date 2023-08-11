@@ -6,12 +6,46 @@ import React from "react";
 import MyContractsTable from "./myContractsTable";
 
 const ContractsComponent = () => {
-  const { wallet, connectMetaMask, deployContract } = useMetaMask();
-  const [addresses, setAddresses] = React.useState([]);
+  const {
+    wallet,
+    connectMetaMask,
+    deployContract,
+    getRegisteredAddresses,
+    registeredAddresses,
+  } = useMetaMask();
+  const [addresses, setAddresses] = React.useState([
+    {
+      address: "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
+      timeAgo: "Few seconds",
+      eth: "0",
+      isRegistered: registeredAddresses.includes(
+        "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
+      ),
+    },
+  ]);
 
   React.useEffect(() => {
     console.log(addresses);
   }, [addresses]);
+
+  React.useEffect(() => {
+    getRegisteredAddresses();
+  }, []);
+
+  React.useEffect(() => {
+    if (registeredAddresses?.length > 0) {
+      const newArray: any = [];
+      addresses.forEach((address: any) =>
+        newArray.push({
+          ...address,
+          isRegistered: registeredAddresses
+            .map((a) => a.toLowerCase())
+            .includes(address.address.toLowerCase()),
+        }),
+      );
+      setAddresses(newArray);
+    }
+  }, [registeredAddresses]);
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center lg:gap-12 gap-4 xl:px-28 md:px-16 sm:px-8 px-4 relative pt-20 pb-20 overflow-hidden bg-gradient from-overlay to-primary from-80% to-90%">
@@ -22,18 +56,20 @@ const ContractsComponent = () => {
         {wallet ? (
           <div
             onClick={async () => {
-              //   const address = await deployContract("ERC20");
-              const address = "0x564654d65a464a6546a846464a486a468a46a84";
-              setAddresses((prev: any) => {
-                const newArray: any = [];
-                prev.forEach((address: any) => newArray.push(address));
-                newArray.push({
-                  address,
-                  timeAgo: "Few seconds",
-                  eth: "0.1546",
+              const address = await deployContract("ERC20");
+              // const address = "0x564654d65a464a6546a846464a486a468a46a84";
+              if (address != null) {
+                setAddresses((prev: any) => {
+                  const newArray: any = [];
+                  prev.forEach((contract: any) => newArray.push(contract));
+                  newArray.push({
+                    address,
+                    timeAgo: "Few seconds",
+                    eth: "0",
+                  });
+                  return newArray;
                 });
-                return newArray;
-              });
+              }
             }}
             className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-sm text-white py-4 px-10 cursor-pointer"
           >
@@ -43,7 +79,7 @@ const ContractsComponent = () => {
         ) : (
           <div
             onClick={() => connectMetaMask()}
-            className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-sm text-white py-2 px-10 cursor-pointer"
+            className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-sm text-white py-4 px-10 cursor-pointer"
           >
             Connect Wallet{" "}
             <img src="/img/icons/contract.svg" className="w-4" alt="" />

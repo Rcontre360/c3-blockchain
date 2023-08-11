@@ -10,7 +10,7 @@ import {
   useMemo,
 } from "react";
 
-import { NETWORK_ID } from "@/const";
+import { ADDRESS_REGISTRY, NETWORK_ID } from "@/const";
 import { toast } from "react-hot-toast";
 import {
   getProvider as getEthProvider,
@@ -28,11 +28,13 @@ export interface MetaMaskContextData {
   errorMessage: string;
   networkExpected: string | undefined;
   isConnecting: boolean;
+  registeredAddresses: string[];
   connectMetaMask: () => void;
   switchNetwork: (arg1: string) => void;
   clearError: () => void;
   updateBalance: (arg1: any) => void;
   deployContract: any;
+  getRegisteredAddresses: () => void;
 }
 
 const MetaMaskContext = createContext<MetaMaskContextData>(
@@ -49,7 +51,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
   const [userWallet, setWallet] = useState("");
 
-  const [registeredAddresses, setRegisteredAddressses] = useState([]);
+  const [registeredAddresses, setRegisteredAddressses] = useState<string[]>([]);
 
   const getRegisteredAddresses = useCallback(async () => {
     try {
@@ -57,7 +59,15 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         process.env.NEXT_PUBLIC_RPC || "http://127.0.0.1:8545",
       );
 
-      getContractCustom("C3Registry", ADDRESS_REGISTRY, provider);
+      const registry = getContractCustom(
+        "C3Registry",
+        ADDRESS_REGISTRY,
+        provider,
+      );
+      const allAddresses: string[] = await registry.methods
+        .getAllRegisters()
+        .call();
+      setRegisteredAddressses(allAddresses);
     } catch (err: any) {
       console.log(err.message);
       toast.error(
@@ -149,6 +159,8 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       clearError,
       updateBalance: updateWallet,
       deployContract,
+      getRegisteredAddresses,
+      registeredAddresses,
     };
   }, [userWallet, connectMetaMask, deployContract]);
 

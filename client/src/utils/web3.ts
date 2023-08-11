@@ -2,6 +2,7 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import Web3 from "web3";
 import contracts from "@/contracts";
 import { ethers } from "ethers";
+import { ADDRESS_REGISTRY } from "@/const";
 
 export const getWeb3 = (provider?: any) => {
   return new Web3(provider ? provider : (window as any).ethereum);
@@ -14,7 +15,7 @@ export const getContractCustom = (
 ) => {
   const web3 = getWeb3(provider);
   const contract: any = contracts[factory];
-  return new web3.eth.Contract(contract, address);
+  return new web3.eth.Contract(contract.abi, address);
 };
 
 export const deployContract = async (type: "ERC20") => {
@@ -32,6 +33,33 @@ export const deployContract = async (type: "ERC20") => {
     return address;
   } catch (e) {
     console.log(e);
+    return null;
+  }
+};
+
+export const registerContract = async (address: string) => {
+  try {
+    const provider = new ethers.BrowserProvider((window as any).ethereum);
+    const signer = await provider.getSigner();
+
+    console.log(signer.address, provider, ADDRESS_REGISTRY, address);
+
+    const contractData: any = contracts["C3Registry"];
+
+    const factory = new ethers.ContractFactory(
+      contractData.abi,
+      contractData.bytecode,
+      signer,
+    );
+
+    const C3Registry = await factory.attach(ADDRESS_REGISTRY);
+
+    await (C3Registry as any).mockRegister(address, true);
+
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
   }
 };
 
@@ -46,7 +74,9 @@ export const formatChainAsNum = (chainIdHex: string) => {
 };
 
 export const formatAddress = (addr: string) => {
-  return `${addr.substring(0, 8)}...`;
+  if (addr.substring !== undefined) {
+    return `${addr?.substring(0, 8)}...`;
+  }
 };
 
 export const getProvider = async () => {
