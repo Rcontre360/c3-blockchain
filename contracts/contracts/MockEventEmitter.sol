@@ -24,4 +24,9 @@ contract MockEventEmitter {
         root = 1111;
         timestamp = 1111;
     }
+
+    receive() external payable {
+        root = 1111;
+        timestamp = 1111;
+    }
 }

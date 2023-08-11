@@ -9,7 +9,7 @@ async function main() {
     const tx = await emitter.emitEvent(1, 2)
     const receipt = await tx.wait()
 
-    console.log('Called:', tx.hash, receipt.blockNumber)
+    console.log('Called:', tx.hash, receipt.blockNumber, receipt.blockHash, receipt.logs)
 }
 
 main().catch(error => {
