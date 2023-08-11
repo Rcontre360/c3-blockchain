@@ -1,6 +1,5 @@
-import { ethers, network } from 'hardhat'
-import { expect, assert } from 'chai'
-import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/dist/src/signer-with-address'
+import { ethers } from 'hardhat'
+import { expect } from 'chai'
 import { C3RewardsRegistry } from '../typechain'
 
 describe('C3 Registry', function () {

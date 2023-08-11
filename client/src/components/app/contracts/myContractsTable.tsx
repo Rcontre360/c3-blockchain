@@ -2,7 +2,7 @@ import { formatAddress } from "@/utils/web3";
 import React from "react";
 
 /* eslint-disable @next/next/no-img-element */
-const Table = ({ title, items }: any) => {
+const MyContractsTable = ({ title, items }: any) => {
   React.useEffect(() => {
     console.log(items);
   }, [items]);
@@ -36,11 +36,16 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
           <h3 className="text-md text-secondary">{timeAgo} ago</h3>
         </div>
       </div>
-      <div className="rounded-xl border border-white text-white text-[12px] font-[600] py-2 px-8">
-        {eth} ETH
+      <div className="flex gap-8">
+        <div className="rounded-xl border border-white text-white text-[12px] font-[600] py-2 px-8">
+          {eth} ETH
+        </div>
+        <div className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 px-8 cursor-pointer">
+          Register <img src="/img/icons/contract.svg" className="w-4" alt="" />
+        </div>
       </div>
     </div>
   );
 };
 
-export default Table;
+export default MyContractsTable;
