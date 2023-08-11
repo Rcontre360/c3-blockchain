@@ -1,25 +1,30 @@
+import { formatAddress } from "@/utils/web3";
+import React from "react";
+
 /* eslint-disable @next/next/no-img-element */
-const Table = () => {
+const Table = ({ title, items }: any) => {
+  React.useEffect(() => {
+    console.log(items);
+  }, [items]);
+
   return (
     <div className="w-full flex flex-col items-center">
       <h2 className="text-white font-bold text-xl rounded-2xl bg-primary-opacity py-6 px-10 w-full">
-        Most fees earned
+        {title}
       </h2>
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
-      <TableItem />
+      {items.map(({ address, timeAgo, eth, isRegistered }: any) => (
+        <TableItem
+          key={address}
+          address={address}
+          timeAgo={timeAgo}
+          eth={eth}
+        />
+      ))}
     </div>
   );
 };
 
-const TableItem = () => {
+const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
   return (
     <div className="flex py-12 px-8 gap-6 items-center justify-between w-full border-b-[0.2px]  border-secondary">
       <div className="flex gap-6">
@@ -27,12 +32,12 @@ const TableItem = () => {
           <img src="/img/icons/contract.svg" className="w-5" alt="" />
         </div>
         <div className="flex flex-col">
-          <h3 className="text-md text-primary">0x3ee1265aa5aa...</h3>
-          <h3 className="text-md text-secondary">17 secs ago</h3>
+          <h3 className="text-md text-primary">{formatAddress(address)} </h3>
+          <h3 className="text-md text-secondary">{timeAgo} ago</h3>
         </div>
       </div>
       <div className="rounded-xl border border-white text-white text-[12px] font-[600] py-2 px-8">
-        0.1465 ETH
+        {eth} ETH
       </div>
     </div>
   );

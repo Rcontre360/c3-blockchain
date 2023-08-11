@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 
-import {HardhatUserConfig, task} from 'hardhat/config'
+import { HardhatUserConfig, task } from 'hardhat/config'
 import '@nomiclabs/hardhat-etherscan'
 import 'hardhat-dependency-compiler'
 import '@nomiclabs/hardhat-waffle'
