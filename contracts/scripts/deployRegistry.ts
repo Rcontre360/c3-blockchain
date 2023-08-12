@@ -1,9 +1,18 @@
 import hre, {ethers} from 'hardhat'
 import {writeJsonFile} from './utils'
 
+const parameters = {
+    goerli: {
+        worldid: '0x11cA3127182f7583EfC416a8771BD4d11Fae4334',
+        appid: 'app_staging_24a51708d58ec102b8a8583588108d0f',
+        actionid: 'register-fee-receiver',
+    },
+}
+
 async function main() {
+    const params = parameters[hre.network.name]
     const RegistryFactory = await ethers.getContractFactory('C3RewardsRegistry')
-    const registry = await RegistryFactory.deploy(ethers.constants.AddressZero, 'appid', 'actionid')
+    const registry = await RegistryFactory.deploy(params.worldid, params.appid, params.actionid)
 
     await registry.deployed()
 

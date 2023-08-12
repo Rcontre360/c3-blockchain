@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Table from "./table";
-import { useMetaMask } from "@/context/useMetamask";
+import {useMetaMask} from "@/context/useMetamask";
 import React from "react";
 
 const AppComponent = () => {
-  const { wallet, connectMetaMask, deployContract } = useMetaMask();
+  const {wallet, connectMetaMask, deployContract} = useMetaMask();
   const [address, setAddress] = React.useState("");
   console.log(wallet, "wallet");
 
