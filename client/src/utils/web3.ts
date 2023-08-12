@@ -1,8 +1,8 @@
 import detectEthereumProvider from "@metamask/detect-provider";
 import Web3 from "web3";
 import contracts from "@/contracts";
-import { ethers } from "ethers";
-import { ADDRESS_REGISTRY } from "@/const";
+import {ethers, Signer} from "ethers";
+import {ADDRESS_REGISTRY} from "@/const";
 
 export const getWeb3 = (provider?: any) => {
   return new Web3(provider ? provider : (window as any).ethereum);
@@ -11,7 +11,7 @@ export const getWeb3 = (provider?: any) => {
 export const getContractCustom = (
   factory: "ERC20" | "C3Registry" | "WorldIDRouter",
   address: string,
-  provider: any,
+  provider: any
 ) => {
   const web3 = getWeb3(provider);
   const contract: any = contracts[factory];
@@ -23,11 +23,7 @@ export const deployContract = async (type: "ERC20") => {
   try {
     const provider = new ethers.BrowserProvider((window as any).ethereum);
     const signer = await provider.getSigner();
-    const factory = new ethers.ContractFactory(
-      contractData.abi,
-      contractData.bytecode,
-      signer,
-    );
+    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
     const contract = await factory.deploy();
     const address = await contract.getAddress();
     return address;
@@ -37,24 +33,47 @@ export const deployContract = async (type: "ERC20") => {
   }
 };
 
-export const registerContract = async (address: string) => {
+export const attach = (abi: any, address: string, signer: Signer) => {
+  return new ethers.Contract(address, abi, signer);
+};
+
+export const registerContract = async (
+  address: string,
+  proofValues?: {
+    wallet: string;
+    decodedRoot: string;
+    decodedNullifier: string;
+    decodedProof: string[];
+  }
+) => {
   try {
     const provider = new ethers.BrowserProvider((window as any).ethereum);
     const signer = await provider.getSigner();
 
-    console.log(signer.address, provider, ADDRESS_REGISTRY, address);
+    console.log(signer.address, provider, ADDRESS_REGISTRY, address, proofValues);
 
     const contractData: any = contracts["C3Registry"];
 
-    const factory = new ethers.ContractFactory(
-      contractData.abi,
-      contractData.bytecode,
-      signer,
-    );
+    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
 
     const C3Registry = await factory.attach(ADDRESS_REGISTRY);
 
-    await (C3Registry as any).mockRegister(address, true);
+    //address receiver,
+    //address signal,
+    //uint256 root,
+    //uint256 nullifierHash,
+    //uint256[8] calldata proof
+
+    proofValues
+      ? await (C3Registry as any).registerContract(
+        "0x94750381bE1AbA0504C666ee1DB118F68f0780D4",
+        proofValues.wallet,
+        proofValues.decodedRoot,
+        proofValues.decodedNullifier,
+        proofValues.decodedProof,
+        {gasLimit: "100000000"}
+      )
+      : await (C3Registry as any).mockRegister(address, true);
 
     return true;
   } catch (e) {
@@ -80,18 +99,22 @@ export const formatAddress = (addr: string) => {
 };
 
 export const getProvider = async () => {
-  return await detectEthereumProvider({ silent: true });
+  return await detectEthereumProvider({silent: true});
+};
+
+export const getEthersProvider = () => {
+  return new ethers.BrowserProvider((window as any).ethereum);
 };
 
 export const getAccounts = async () => {
-  return await (window as any).ethereum.request({ method: "eth_accounts" });
+  return await (window as any).ethereum.request({method: "eth_accounts"});
 };
 
 export const switchEthereumChain = async (chainId: string) => {
   const provider = await getProvider();
   return await (provider as any).request({
     method: "wallet_switchEthereumChain",
-    params: [{ chainId }],
+    params: [{chainId}],
   });
 };
 
