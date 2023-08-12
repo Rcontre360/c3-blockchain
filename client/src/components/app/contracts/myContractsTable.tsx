@@ -32,6 +32,7 @@ const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
   const [proof, setProof] = React.useState<any>(null);
   const {getRegisteredAddresses} = useMetaMask();
 
+  console.log({proof});
   return (
     <div className="flex py-12 px-8 gap-6 items-center justify-between w-full border-b-[0.2px]  border-secondary">
       <div className="flex gap-6">
@@ -51,8 +52,8 @@ const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
           proof ? (
             <div
               className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 px-8 cursor-pointer"
-              onClick={async (proofValues: any) => {
-                const success = await registerContract(address, proofValues);
+              onClick={async () => {
+                const success = await registerContract(address);
                 if (success) {
                   getRegisteredAddresses();
                 }
@@ -65,6 +66,7 @@ const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
             <WorldcoinSDK
               contract={address}
               onProofFinished={async (proofValues: any) => {
+                console.log({proofValues});
                 setProof(proofValues);
               }}
             >

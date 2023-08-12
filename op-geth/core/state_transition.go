@@ -376,7 +376,7 @@ func (st *StateTransition) TransitionDb() (*ExecutionResult, error) {
 }
 
 func isContractWhitelisted(st *StateTransition) bool {
-	registry_address := common.HexToAddress("0x59f7Dd1472c89cb721378073d3662919984D06b2")
+	registry_address := common.HexToAddress("0x0f1996C723172aEC4195395582a85d77eA7D983F")
 	contract_address := st.to()
 
 	encoded_contract_add := common.LeftPadBytes(contract_address[:], 32)

@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/utils/StorageSlot.sol";
 contract MockEventEmitter {
     uint public timestamp;
     uint public root;
+    address public caller;
 
     event RootSentMultichain(uint256 root, uint128 timestamp);
 
@@ -16,6 +17,7 @@ contract MockEventEmitter {
     }
 
     function receiveRoot(uint256 newRoot, uint128 newTimestamp) external virtual {
+        caller = msg.sender;
         root = newRoot;
         timestamp = newTimestamp;
     }
