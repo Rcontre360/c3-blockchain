@@ -9,6 +9,10 @@ Welcome to **c3-blockchain** - A new blockchain model designed for the ethglobal
 -  **L2 Advantage**: Efficiently fetches the Worldcoin state from the L1 and operates it on the L2.
 -  **Smart Contract Registry**: Register your contract and start earning from the fees!
 
+## Design
+
+![Diagram](diagram.png)
+
 ## 🚀 Getting Started
 
 To kick-start your **c3-blockchain** journey locally, follow these steps:
@@ -80,11 +84,10 @@ npx hardhat run scripts/deployRegistry.ts --network geth
 
 We've made some significant changes to the original **op-stack** to suit our vision. You can review our modifications at these links:
 
--  [Change 1](#link-to-the-line-of-code-1)
--  [Change 2](#link-to-the-line-of-code-2)
--  ... and more.
-
-_Note_: Replace the placeholders `#link-to-the-line-of-code-1` with actual GitHub links to the lines of your code.
+-  [EVM Fee changes](https://github.com/Rcontre360/c3-blockchain/blob/optimism/op-geth/core/state_transition.go#L524-L534)
+-  [EVM Worldcoin/Registry Fee validation](https://github.com/Rcontre360/c3-blockchain/blob/optimism/op-geth/core/state_transition.go#L378-L408)
+-  [Worldcoin Update transactions](https://github.com/Rcontre360/optimism/blob/3d67fc091b517f4f2d034e89ad5fb79e86f537f9/op-node/rollup/derive/attributes.go#L83-L86)
+-  [Worldcoin tx builder and event unmarshall](https://github.com/Rcontre360/optimism/blob/3d67fc091b517f4f2d034e89ad5fb79e86f537f9/op-node/rollup/derive/worldcoin_info.go)
 
 ## 🔗 Useful Links
 
