@@ -1,10 +1,12 @@
-import { useModal } from "@/hooks/modal";
-import { formatAddress } from "@/utils/web3";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {useMetaMask} from "@/context/useMetamask";
+import {useModal} from "@/hooks/modal";
+import {formatAddress, testContract} from "@/utils/web3";
+import {XMarkIcon} from "@heroicons/react/24/outline";
+import {ethers} from "ethers";
 import React from "react";
 
 /* eslint-disable @next/next/no-img-element */
-const Table = ({ title, items }: any) => {
+const Table = ({title, items}: any) => {
   React.useEffect(() => {
     console.log(items);
   }, [items]);
@@ -14,20 +16,30 @@ const Table = ({ title, items }: any) => {
       <h2 className="text-white font-bold text-xl rounded-2xl bg-primary-opacity py-6 px-10 w-full">
         {title}
       </h2>
-      {items.map(({ address, timeAgo, eth, isRegistered }: any) => (
-        <TableItem
-          key={address}
-          address={address}
-          timeAgo={timeAgo}
-          eth={eth}
-        />
+      {items.map(({address, timeAgo, eth, isRegistered}: any) => (
+        <TableItem key={address} address={address} timeAgo={timeAgo} eth={eth} />
       ))}
     </div>
   );
 };
 
-const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
-  const { Modal, show, hide, isShow } = useModal();
+const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
+  const [contractBalance, setBalance] = React.useState(eth || 0);
+  const {Modal, show, hide, isShow} = useModal();
+  const {wallet} = useMetaMask();
+  console.log({contractBalance});
+
+  const handleTestMe = async () => {
+    const tx = await testContract(address, {wallet});
+    const gasUsed = (tx.gasLimit * tx.gasPrice) as any;
+
+    setBalance((bal: string) => {
+      const number = BigInt(Number(bal) * 1000000000000000000);
+      const result = ethers.formatEther(number + gasUsed);
+      return result.substring(0, 7);
+    });
+  };
+
   return (
     <>
       <Modal isShow={isShow} withoutX>
@@ -42,33 +54,23 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
             <span className="sr-only">Close</span>
             <XMarkIcon className="h-7 w-7 font-bold" aria-hidden="true" />
           </button>
-          <h2 className="text-4xl text-center font-bold text-white px-16">
-            Contract Detail
-          </h2>
+          <h2 className="text-4xl text-center font-bold text-white px-16">Contract Detail</h2>
           <div className="flex flex-col items-center gap-8 w-full">
             <div className="flex flex-col items-center w-full gap-4 shrink-0">
               <div className="w-full gap-4 shrink-0 overflow-hidden">
-                <h2 className="text-white font-bold text-xl text-center">
-                  Address
-                </h2>
-                <p className="text-lg text-primary text-ellipsis text-center">
-                  {address}
-                </p>
+                <h2 className="text-white font-bold text-xl text-center">Address</h2>
+                <p className="text-lg text-primary text-ellipsis text-center">{address}</p>
               </div>
             </div>
             <div className="flex flex-col w-full gap-2 shrink-0">
               <div className="w-full gap-4">
-                <h2 className="text-white font-bold text-xl text-center">
-                  ETH Earned
-                </h2>
-                <p className="text-lg text-primary text-center">{eth}</p>
+                <h2 className="text-white font-bold text-xl text-center">ETH Earned</h2>
+                <p className="text-lg text-primary text-center">{contractBalance}</p>
               </div>
             </div>
-            <h2 className="text-white font-bold text-xl text-center">
-              Gas Fee Test
-            </h2>
+            <h2 className="text-white font-bold text-xl text-center">Gas Fee Test</h2>
             <div
-              onClick={() => {}}
+              onClick={handleTestMe}
               className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 px-8 cursor-pointer"
             >
               Test me!
@@ -87,11 +89,11 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
           </div>
           <div className="flex flex-col">
             <h3 className="text-md text-primary">{formatAddress(address)} </h3>
-            <h3 className="text-md text-secondary">{timeAgo} ago</h3>
+            <h3 className="text-md text-secondary">{timeAgo} </h3>
           </div>
         </div>
         <div className="rounded-xl border border-white text-white text-[12px] font-[600] py-2 px-8">
-          {eth} ETH
+          {contractBalance} ETH
         </div>
       </div>
     </>

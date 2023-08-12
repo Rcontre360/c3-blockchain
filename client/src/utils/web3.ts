@@ -1,5 +1,5 @@
 import detectEthereumProvider from "@metamask/detect-provider";
-import Web3 from "web3";
+import Web3, {TransactionReceipt} from "web3";
 import contracts from "@/contracts";
 import {ethers, Signer} from "ethers";
 import {ADDRESS_REGISTRY} from "@/const";
@@ -35,6 +35,28 @@ export const deployContract = async (type: "ERC20") => {
 
 export const attach = (abi: any, address: string, signer: Signer) => {
   return new ethers.Contract(address, abi, signer);
+};
+
+export const testContract = async (
+  address: string,
+  args: {
+    wallet: string;
+  }
+) => {
+  try {
+    const provider = new ethers.BrowserProvider((window as any).ethereum);
+    const signer = await provider.getSigner();
+    const contractData: any = contracts["ERC20"];
+
+    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
+
+    const erc20 = (await factory.attach(address)) as any;
+
+    return (await erc20.mint(args.wallet, "100000000000")) as TransactionReceipt;
+  } catch (e) {
+    console.log(e);
+    return {gasUsed: 1} as any;
+  }
 };
 
 export const registerContract = async (

@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 
-import { HardhatUserConfig, task } from 'hardhat/config'
+import {HardhatUserConfig, task} from 'hardhat/config'
 import '@nomiclabs/hardhat-etherscan'
 import 'hardhat-dependency-compiler'
 import '@nomiclabs/hardhat-waffle'
@@ -19,7 +19,7 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 })
 
 // Ensure that we have all the environment variables we need.
-const mnemonic: string[] | undefined = [process.env.PRIVATE_KEY]
+const mnemonic: string = process.env.MNEMONIC
 if (!mnemonic) {
     throw new Error('Please set your MNEMONIC in a .env file')
 }
@@ -32,11 +32,11 @@ const config: HardhatUserConfig = {
     networks: {
         geth: {
             url: 'http://127.0.0.1:8545/',
-            accounts: mnemonic,
+            accounts: {mnemonic},
         },
         goerli: {
             url: process.env.GOERLI_PROVIDER,
-            accounts: mnemonic,
+            accounts: {mnemonic},
         },
     },
 }

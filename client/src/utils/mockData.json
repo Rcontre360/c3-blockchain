@@ -1,106 +1,94 @@
 {
-  "top10Contracts": [
+  "contracts": [
     {
-      "address": "0xabcdef1234567890abcdef1234567890",
-      "timeAgo": "3 hours",
-      "eth": "5.7801"
+      "address": "0xe1BF813365fB3Be0242901971C46DAc55078DC12",
+      "timeAgo": "54 minutes ago",
+      "eth": "0.11",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xfedcba9876543210feda9876543210fe",
-      "timeAgo": "10 hours",
-      "eth": "4.7890"
+      "address": "0xDDc243cc1036DA9BdBD2C2c04aE8E5F6C0Ce077A",
+      "timeAgo": "32 minutes ago",
+      "eth": "0.02",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x987654c3b21098765432e1df23456789",
-      "timeAgo": "1 hour",
-      "eth": "2.5600"
+      "address": "0x4F4fA46115ed67C668bb35e4Bbd61CA24B4F8A00",
+      "timeAgo": "11 minutes ago",
+      "eth": "0.15",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xcba32109feda12345678dcba32109fe",
-      "timeAgo": "7 hours",
-      "eth": "3.0125"
+      "address": "0x139d97400123c954a8B1c0edf8B41A6361D21526",
+      "timeAgo": "22 minutes ago",
+      "eth": "0.13",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x876543c3b21e987a432f1dcba9876543",
-      "timeAgo": "2 hours",
-      "eth": "0.8750"
+      "address": "0x5A8c2Aa6bF8be00885d1C44c4301f3428284bD42",
+      "timeAgo": "38 minutes ago",
+      "eth": "0.12",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xba987654c32109ba654321efba987654",
-      "timeAgo": "12 mins",
-      "eth": "1.4523"
+      "address": "0xcD5b7A5581d7B181b5FC7E17EA100EE4B76fDcd0",
+      "timeAgo": "50 minutes ago",
+      "eth": "0.13",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xdcba98765432fedcba9876543210fed",
-      "timeAgo": "8 hours",
-      "eth": "0.9647"
+      "address": "0x991f16CE76248cd41eC20604cbDa8D413d4CD214",
+      "timeAgo": "18 minutes ago",
+      "eth": "0.05",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xefba3210fe9876a54321fedc98765432",
-      "timeAgo": "45 secs",
-      "eth": "0.6734"
+      "address": "0x222397a0d3D707CdD11A2e65fC770357A45902b1",
+      "timeAgo": "59 minutes ago",
+      "eth": "0.03",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x345465a4d64a646446a844600000212",
-      "timeAgo": "17 secs",
-      "eth": "0.1456"
+      "address": "0x6f36d18A8D9C52703CBdaA7B7B0012e905EC8D7F",
+      "timeAgo": "38 minutes ago",
+      "eth": "0.16",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x123456b7c89a0012345678d90efb1123",
-      "timeAgo": "5 mins",
-      "eth": "0.0234"
-    }
-  ],
-  "myContracts": [
-    {
-      "address": "0x345465a4d64a646446a844600000212",
-      "timeAgo": "17 secs",
-      "eth": "0.1456"
+      "address": "0x2AB34c57e6445B3251F4bD51273F435B91d7F392",
+      "timeAgo": "53 minutes ago",
+      "eth": "0.07",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x123456b7c89a0012345678d90efb1123",
-      "timeAgo": "5 mins",
-      "eth": "0.0234"
+      "address": "0xf4De3d1Fd6727C3eB39065C5dD00E04F9e760e48",
+      "timeAgo": "34 minutes ago",
+      "eth": "0.18",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x987654c3b21098765432e1df23456789",
-      "timeAgo": "1 hour",
-      "eth": "2.5600"
+      "address": "0x3a84E1ceeF69db0534A8f6F96463EC724Cb6ff12",
+      "timeAgo": "11 minutes ago",
+      "eth": "0.03",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xabcdef1234567890abcdef1234567890",
-      "timeAgo": "3 hours",
-      "eth": "5.7801"
+      "address": "0x38848E8C9c7e6918d2F734d12a6e6BeA6DA7A014",
+      "timeAgo": "24 minutes ago",
+      "eth": "0.06",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0x876543c3b21e987a432f1dcba9876543",
-      "timeAgo": "2 hours",
-      "eth": "0.8750"
+      "address": "0xA984a2B5e903beD28E9Ff400eE27b96Fb8D38B20",
+      "timeAgo": "36 minutes ago",
+      "eth": "0.17",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     },
     {
-      "address": "0xba987654c32109ba654321efba987654",
-      "timeAgo": "12 mins",
-      "eth": "1.4523"
-    },
-    {
-      "address": "0xcba32109feda12345678dcba32109fe",
-      "timeAgo": "7 hours",
-      "eth": "3.0125"
-    },
-    {
-      "address": "0xdcba98765432fedcba9876543210fed",
-      "timeAgo": "8 hours",
-      "eth": "0.9647"
-    },
-    {
-      "address": "0xefba3210fe9876a54321fedc98765432",
-      "timeAgo": "45 secs",
-      "eth": "0.6734"
-    },
-    {
-      "address": "0xfedcba9876543210feda9876543210fe",
-      "timeAgo": "2 hours",
-      "eth": "4.7890"
+      "address": "0x701114f0ABA6E58893D0dCB7f30eE76aBA94aba9",
+      "timeAgo": "26 minutes ago",
+      "eth": "0.03",
+      "owner": "0xefe4F346AE1A4E69953688B3f911E0aE22c0dbc0"
     }
   ]
 }

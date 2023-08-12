@@ -3,6 +3,7 @@ import Link from "next/link";
 import Table from "./table";
 import {useMetaMask} from "@/context/useMetamask";
 import React from "react";
+import DeployedContracts from "../../utils/mockData.json";
 
 const AppComponent = () => {
   const {wallet, connectMetaMask, deployContract} = useMetaMask();
@@ -24,96 +25,8 @@ const AppComponent = () => {
         </Link>
       </div>
       <div className="flex xl:flex-row flex-col xl:gap-10 gap-2 w-full">
-        <Table
-          title={"Most earned fees"}
-          items={[
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-          ]}
-        />
-        <Table
-          title={"Most earned fees"}
-          items={[
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-            {
-              address: "0x345465a4d64a646446a844600000212",
-              timeAgo: "17 secs",
-              eth: "0.1456",
-            },
-          ]}
-        />
+        <Table title={"Most earned fees"} items={DeployedContracts.contracts} />
+        <Table title={"All contracts"} items={DeployedContracts.contracts.reverse()} />
       </div>
     </div>
   );
