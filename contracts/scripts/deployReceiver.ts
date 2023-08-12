@@ -1,20 +1,22 @@
-import hre, {ethers} from 'hardhat'
-import {writeJsonFile} from './utils'
+import hre, { ethers, network } from 'hardhat'
+import { loadJsonFile, writeJsonFile } from './utils'
 
-const registryAddress = '0x59f7Dd1472c89cb721378073d3662919984D06b2'
+// const registryAddress = '0x59f7Dd1472c89cb721378073d3662919984D06b2'
 
 async function main() {
-    const [_signer, second] = await ethers.getSigners()
+    const [_signer] = await ethers.getSigners()
+    const configFileName = `addresses.${network.name}.json`
+    const data = loadJsonFile(configFileName)
 
     const ReceiverFactory = await ethers.getContractFactory('C3RewardReceiver')
 
-    const registry = await ethers.getContractAt('C3RewardsRegistry', registryAddress)
-    const receiver = await ReceiverFactory.deploy(second.address)
+    const registry = await ethers.getContractAt('C3RewardsRegistry', data.Registry)
+    const receiver = await ReceiverFactory.deploy(_signer.address)
 
     await registry.mockRegister(receiver.address, true)
-    console.log('PREV BALANCE', (await ethers.provider.getBalance(second.address)).toString())
+    console.log('PREV BALANCE', (await ethers.provider.getBalance(_signer.address)).toString())
     await receiver.normalCall()
-    console.log('POST BALANCE', (await ethers.provider.getBalance(second.address)).toString())
+    console.log('POST BALANCE', (await ethers.provider.getBalance(_signer.address)).toString())
 
     console.log(`Rewards receiver: ${receiver.address}`)
     console.log(
@@ -40,7 +42,7 @@ async function getMappingValue(contractAddress: string, userAddress: string, pro
     const storageKey = ethers.utils.keccak256(encoded)
 
     const rawValue = await provider.getStorageAt(contractAddress, storageKey)
-    console.log({storageKey, rawValue, encoded})
+    console.log({ storageKey, rawValue, encoded })
 
     return Boolean(Number(rawValue)) // Convert the hex value to a boolean
 }
