@@ -1,19 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Table from "../table";
-import {useMetaMask} from "@/context/useMetamask";
+import { useMetaMask } from "@/context/useMetamask";
 import React from "react";
 import MyContractsTable from "./myContractsTable";
 
 const ContractsComponent = () => {
-  const {wallet, connectMetaMask, deployContract, getRegisteredAddresses, registeredAddresses} =
-    useMetaMask();
+  const {
+    wallet,
+    connectMetaMask,
+    deployContract,
+    getRegisteredAddresses,
+    registeredAddresses,
+  } = useMetaMask();
   const [addresses, setAddresses] = React.useState([
     {
       address: "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
       timeAgo: "Few seconds",
       eth: "0",
-      isRegistered: registeredAddresses.includes("0xe0dcf9d782381ee1cdb54122e2aa50df46283822"),
+      isRegistered: registeredAddresses.includes(
+        "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
+      ),
     },
   ]);
 
@@ -34,16 +41,18 @@ const ContractsComponent = () => {
           isRegistered: registeredAddresses
             .map((a) => a.toLowerCase())
             .includes(address.address.toLowerCase()),
-        })
+        }),
       );
       setAddresses(newArray);
     }
   }, [registeredAddresses]);
 
-  console.log({wallet});
+  console.log({ wallet });
   return (
-    <div className="min-h-screen w-full flex flex-col items-center lg:gap-12 gap-4 xl:px-28 md:px-16 sm:px-8 px-4 relative pt-20 pb-20 overflow-hidden bg-gradient from-overlay to-primary from-80% to-90%">
-      <h1 className="text-center text-white font-bold lg:text-5xl text-3xl">Contract Manager</h1>
+    <div className="min-h-screen w-full flex flex-col items-center lg:gap-12 gap-4 xl:px-28 md:px-16 sm:px-8 px-4 relative pt-20 pb-20 overflow-hidden bg-gradient-to-b from-overlay to-primary from-80% to-90%">
+      <h1 className="text-center text-white font-bold lg:text-5xl text-3xl">
+        Contract Manager
+      </h1>
       <div className="flex w-full items-end justify-center">
         {wallet ? (
           <div
@@ -73,7 +82,8 @@ const ContractsComponent = () => {
             onClick={() => connectMetaMask()}
             className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-sm text-white py-4 px-10 cursor-pointer"
           >
-            Connect Wallet <img src="/img/icons/contract.svg" className="w-4" alt="" />
+            Connect Wallet{" "}
+            <img src="/img/icons/contract.svg" className="w-4" alt="" />
           </div>
         )}
       </div>
