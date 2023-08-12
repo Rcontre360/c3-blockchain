@@ -6,6 +6,7 @@ import "@/styles/global-tailwind.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { MetaMaskContextProvider } from "@/context/useMetamask";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <MetaMaskContextProvider>
           <AppLayout>{children}</AppLayout>
+          <Toaster />
         </MetaMaskContextProvider>
       </body>
     </html>

@@ -1,11 +1,11 @@
-import {WorldcoinSDK} from "@/components/common/worldcoin";
-import {useMetaMask} from "@/context/useMetamask";
-import {formatAddress, registerContract} from "@/utils/web3";
-import {CheckCircleIcon} from "@heroicons/react/24/outline";
+import { WorldcoinSDK } from "@/components/common/worldcoin";
+import { useMetaMask } from "@/context/useMetamask";
+import { formatAddress, registerContract } from "@/utils/web3";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 /* eslint-disable @next/next/no-img-element */
-const MyContractsTable = ({title, items}: any) => {
+const MyContractsTable = ({ title, items }: any) => {
   React.useEffect(() => {
     console.log(items);
   }, [items]);
@@ -15,24 +15,30 @@ const MyContractsTable = ({title, items}: any) => {
       <h2 className="text-white font-bold text-xl rounded-2xl bg-primary-opacity py-6 px-10 w-full">
         {title}
       </h2>
-      {items.map(({address, timeAgo, eth, isRegistered}: any) => (
-        <TableItem
-          key={address}
-          address={address}
-          timeAgo={timeAgo}
-          eth={eth}
-          isRegistered={isRegistered}
-        />
-      ))}
+      {items.length > 0 ? (
+        items.map(({ address, timeAgo, eth, isRegistered }: any) => (
+          <TableItem
+            key={address}
+            address={address}
+            timeAgo={timeAgo}
+            eth={eth}
+            isRegistered={isRegistered}
+          />
+        ))
+      ) : (
+        <div className="flex items-center justify-center text-white font-bold text-xl h-[50vh]">
+          {"You don't have any contracts in C3"}
+        </div>
+      )}
     </div>
   );
 };
 
-const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
+const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
   const [proof, setProof] = React.useState<any>(null);
-  const {getRegisteredAddresses} = useMetaMask();
+  const { getRegisteredAddresses } = useMetaMask();
 
-  console.log({proof});
+  console.log({ proof });
   return (
     <div className="flex py-12 px-8 gap-6 items-center justify-between w-full border-b-[0.2px]  border-secondary">
       <div className="flex gap-6">
@@ -66,7 +72,7 @@ const TableItem = ({address, timeAgo, eth, isRegistered}: any) => {
             <WorldcoinSDK
               contract={address}
               onProofFinished={async (proofValues: any) => {
-                console.log({proofValues});
+                console.log({ proofValues });
                 setProof(proofValues);
               }}
             >

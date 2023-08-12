@@ -13,16 +13,7 @@ const ContractsComponent = () => {
     getRegisteredAddresses,
     registeredAddresses,
   } = useMetaMask();
-  const [addresses, setAddresses] = React.useState([
-    {
-      address: "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
-      timeAgo: "Few seconds",
-      eth: "0",
-      isRegistered: registeredAddresses.includes(
-        "0xe0dcf9d782381ee1cdb54122e2aa50df46283822",
-      ),
-    },
-  ]);
+  const [addresses, setAddresses] = React.useState([]);
 
   React.useEffect(() => {
     console.log(addresses);
@@ -49,7 +40,7 @@ const ContractsComponent = () => {
 
   console.log({ wallet });
   return (
-    <div className="min-h-screen w-full flex flex-col items-center lg:gap-12 gap-4 xl:px-28 md:px-16 sm:px-8 px-4 relative pt-20 pb-20 overflow-hidden bg-gradient-to-b from-overlay to-primary from-80% to-90%">
+    <div className="min-h-screen w-full flex flex-col items-center lg:gap-12 gap-4 xl:px-28 md:px-16 sm:px-8 px-4 relative pt-20 pb-20 overflow-hidden bg-gradient-to-b from-overlay from-10% via-overlay via-40% to-[#6545f344]">
       <h1 className="text-center text-white font-bold lg:text-5xl text-3xl">
         Contract Manager
       </h1>

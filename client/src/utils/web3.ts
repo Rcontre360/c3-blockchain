@@ -1,8 +1,9 @@
 import detectEthereumProvider from "@metamask/detect-provider";
-import Web3, {TransactionReceipt} from "web3";
+import Web3, { TransactionReceipt } from "web3";
 import contracts from "@/contracts";
-import {ethers, Signer} from "ethers";
-import {ADDRESS_REGISTRY} from "@/const";
+import { ethers, Signer } from "ethers";
+import { ADDRESS_REGISTRY } from "@/const";
+import { toast } from "react-hot-toast";
 
 export const getWeb3 = (provider?: any) => {
   return new Web3(provider ? provider : (window as any).ethereum);
@@ -11,7 +12,7 @@ export const getWeb3 = (provider?: any) => {
 export const getContractCustom = (
   factory: "ERC20" | "C3Registry" | "WorldIDRouter",
   address: string,
-  provider: any
+  provider: any,
 ) => {
   const web3 = getWeb3(provider);
   const contract: any = contracts[factory];
@@ -23,11 +24,15 @@ export const deployContract = async (type: "ERC20") => {
   try {
     const provider = new ethers.BrowserProvider((window as any).ethereum);
     const signer = await provider.getSigner();
-    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
-    const contract = await factory.deploy();
+    const factory = new ethers.ContractFactory(
+      contractData.abi,
+      contractData.bytecode,
+      signer,
+    );
+    const contract = await factory.deploy(signer.address);
     const address = await contract.getAddress();
     return address;
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return null;
   }
@@ -41,21 +46,28 @@ export const testContract = async (
   address: string,
   args: {
     wallet: string;
-  }
+  },
 ) => {
   try {
     const provider = new ethers.BrowserProvider((window as any).ethereum);
     const signer = await provider.getSigner();
     const contractData: any = contracts["ERC20"];
 
-    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
+    const factory = new ethers.ContractFactory(
+      contractData.abi,
+      contractData.bytecode,
+      signer,
+    );
 
     const erc20 = (await factory.attach(address)) as any;
 
-    return (await erc20.mint(args.wallet, "100000000000")) as TransactionReceipt;
-  } catch (e) {
+    return (await erc20.mint(
+      args.wallet,
+      "100000000000",
+    )) as TransactionReceipt;
+  } catch (e: any) {
     console.log(e);
-    return {gasUsed: 1} as any;
+    return { gasUsed: 1 } as any;
   }
 };
 
@@ -66,17 +78,27 @@ export const registerContract = async (
     decodedRoot: string;
     decodedNullifier: string;
     decodedProof: string[];
-  }
+  },
 ) => {
   try {
     const provider = new ethers.BrowserProvider((window as any).ethereum);
     const signer = await provider.getSigner();
 
-    console.log(signer.address, provider, ADDRESS_REGISTRY, address, proofValues);
+    console.log(
+      signer.address,
+      provider,
+      ADDRESS_REGISTRY,
+      address,
+      proofValues,
+    );
 
     const contractData: any = contracts["C3Registry"];
 
-    const factory = new ethers.ContractFactory(contractData.abi, contractData.bytecode, signer);
+    const factory = new ethers.ContractFactory(
+      contractData.abi,
+      contractData.bytecode,
+      signer,
+    );
 
     const C3Registry = await factory.attach(ADDRESS_REGISTRY);
 
@@ -88,17 +110,17 @@ export const registerContract = async (
 
     proofValues
       ? await (C3Registry as any).registerContract(
-        "0x94750381bE1AbA0504C666ee1DB118F68f0780D4",
-        proofValues.wallet,
-        proofValues.decodedRoot,
-        proofValues.decodedNullifier,
-        proofValues.decodedProof,
-        {gasLimit: "100000000"}
-      )
+          "0x94750381bE1AbA0504C666ee1DB118F68f0780D4",
+          proofValues.wallet,
+          proofValues.decodedRoot,
+          proofValues.decodedNullifier,
+          proofValues.decodedProof,
+          { gasLimit: "100000000" },
+        )
       : await (C3Registry as any).mockRegister(address, true);
 
     return true;
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return false;
   }
@@ -121,7 +143,7 @@ export const formatAddress = (addr: string) => {
 };
 
 export const getProvider = async () => {
-  return await detectEthereumProvider({silent: true});
+  return await detectEthereumProvider({ silent: true });
 };
 
 export const getEthersProvider = () => {
@@ -129,14 +151,14 @@ export const getEthersProvider = () => {
 };
 
 export const getAccounts = async () => {
-  return await (window as any).ethereum.request({method: "eth_accounts"});
+  return await (window as any).ethereum.request({ method: "eth_accounts" });
 };
 
 export const switchEthereumChain = async (chainId: string) => {
   const provider = await getProvider();
   return await (provider as any).request({
     method: "wallet_switchEthereumChain",
-    params: [{chainId}],
+    params: [{ chainId }],
   });
 };
 
