@@ -89,6 +89,15 @@ We've made some significant changes to the original **op-stack** to suit our vis
 -  [Worldcoin Update transactions](https://github.com/Rcontre360/optimism/blob/3d67fc091b517f4f2d034e89ad5fb79e86f537f9/op-node/rollup/derive/attributes.go#L83-L86)
 -  [Worldcoin tx builder and event unmarshall](https://github.com/Rcontre360/optimism/blob/3d67fc091b517f4f2d034e89ad5fb79e86f537f9/op-node/rollup/derive/worldcoin_info.go)
 
+## 💡 Usage of Worldcoin
+
+We've used many things comming from the worldcoin stack
+
+-  [Frontend Integration](https://github.com/Rcontre360/c3-blockchain/blob/optimism/client/src/components/app/contracts/myContractsTable.tsx#L72)
+-  [Local WorldID Contract](https://github.com/Rcontre360/world-id-state-bridge/blob/93c1c871db8bfbbf5d7845532a3caaf9d478d04f/src/script/deploy.js#L571-L595)
+-  [Worldcoin tx builder and event unmarshall](https://github.com/Rcontre360/optimism/blob/3d67fc091b517f4f2d034e89ad5fb79e86f537f9/op-node/rollup/derive/worldcoin_info.go)
+-  [Worldcoin verifier as Registry](https://github.com/Rcontre360/c3-blockchain/blob/optimism/contracts/contracts/C3RewardsRegistry.sol)
+
 ## 🔗 Useful Links
 
 -  [Optimism's op-stack](https://github.com/ethereum-optimism/optimism)
