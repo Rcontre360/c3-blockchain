@@ -1,9 +1,9 @@
 import React from "react";
-import {useMetaMask} from "@/context/useMetamask";
-import {IDKitWidget, ISuccessResult} from "@worldcoin/idkit"; // add import for solidityEncode
-import {BigNumberish, ethers} from "ethers";
+import { useMetaMask } from "@/context/useMetamask";
+import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit"; // add import for solidityEncode
+import { BigNumberish, ethers } from "ethers";
 import RegistryABI from "../../contracts/C3RewardsRegistry.json";
-import {attach, getEthersProvider, registerContract} from "@/utils/web3";
+import { attach, getEthersProvider, registerContract } from "@/utils/web3";
 
 const registryAddress = "0x4DD7f05011ca6fdaC12A5Db36c8387bF12554A9E";
 
@@ -26,22 +26,29 @@ export const WorldcoinSDK = ({
   contract: string;
   onProofFinished: Function;
 }) => {
-  const {wallet} = useMetaMask(); // get the user's wallet address
-
+  const { wallet } = useMetaMask(); // get the user's wallet address
   const handleProofCreation = async (proofInput: any) => {
-    console.log("PROOFF CREATED");
-    const decodedRoot = decode("uint256", proofInput?.merkle_root ?? "");
-    const decodedNullifier = decode("uint256", proofInput?.nullifier_hash ?? "");
-    const decodedProof = decode("uint256[8]", proofInput?.proof ?? "").toArray();
+    try {
+      console.log("PROOFF CREATED");
+      const decodedRoot = decode("uint256", proofInput?.merkle_root ?? "");
+      const decodedNullifier = decode(
+        "uint256",
+        proofInput?.nullifier_hash ?? "",
+      );
+      const decodedProof = decode(
+        "uint256[8]",
+        proofInput?.proof ?? "",
+      ).toArray();
 
-    onProofFinished({
-      wallet,
-      decodedRoot,
-      decodedNullifier,
-      decodedProof,
-    });
-
-    console.log("SUCCESS");
+      onProofFinished({
+        wallet,
+        decodedRoot,
+        decodedNullifier,
+        decodedProof,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -53,7 +60,7 @@ export const WorldcoinSDK = ({
       credential_types={[CredentialType["Orb"]]}
       enableTelemetry
     >
-      {({open}: any) => <button onClick={open}>{children}</button>}
+      {({ open }: any) => <button onClick={open}>{children}</button>}
     </IDKitWidget>
   );
 };

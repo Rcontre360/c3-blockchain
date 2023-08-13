@@ -42,7 +42,7 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
   return (
     <div className="flex py-12 px-8 gap-6 items-center justify-between w-full border-b-[0.2px]  border-secondary">
       <div className="flex gap-6">
-        <div className="w-16 py-4 px-5 bg-primary-disabled rounded-2xl flex items-center justify-center">
+        <div className="w-16 py-4 px-5 bg-primary-disabled rounded-2xl sm:flex hidden items-center justify-center">
           <img src="/img/icons/contract.svg" className="w-5" alt="" />
         </div>
         <div className="flex flex-col">
@@ -50,14 +50,14 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
           <h3 className="text-md text-secondary">{timeAgo} ago</h3>
         </div>
       </div>
-      <div className="flex gap-8">
-        <div className="rounded-xl border border-white text-white text-[12px] font-[600] py-2 px-8">
+      <div className="flex sm:flex-row flex-col gap-x-8 gap-y-2">
+        <div className="rounded-xl border border-white text-white text-center text-[12px] font-[600] py-2 sm:px-8 px-4">
           {eth} ETH
         </div>
         {!isRegistered ? (
           proof ? (
             <div
-              className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 px-8 cursor-pointer"
+              className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 sm:px-8 px-4 cursor-pointer"
               onClick={async () => {
                 const success = await registerContract(address);
                 if (success) {
@@ -76,7 +76,7 @@ const TableItem = ({ address, timeAgo, eth, isRegistered }: any) => {
                 setProof(proofValues);
               }}
             >
-              <div className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 px-8 cursor-pointer">
+              <div className="flex items-center justify-center bg-primary rounded-xl font-bold gap-2 whitespace-nowrap text-[12px] text-white py-2 sm:px-8 px-4 cursor-pointer">
                 Register
                 <img src="/img/icons/contract.svg" className="w-4" alt="" />
               </div>

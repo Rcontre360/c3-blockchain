@@ -3,7 +3,6 @@ import Web3, { TransactionReceipt } from "web3";
 import contracts from "@/contracts";
 import { ethers, Signer } from "ethers";
 import { ADDRESS_REGISTRY } from "@/const";
-import { toast } from "react-hot-toast";
 
 export const getWeb3 = (provider?: any) => {
   return new Web3(provider ? provider : (window as any).ethereum);
@@ -155,11 +154,13 @@ export const getAccounts = async () => {
 };
 
 export const switchEthereumChain = async (chainId: string) => {
-  const provider = await getProvider();
-  return await (provider as any).request({
-    method: "wallet_switchEthereumChain",
-    params: [{ chainId }],
-  });
+  try {
+    const provider = await getProvider();
+    return await (provider as any).request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId }],
+    });
+  } catch (e) {}
 };
 
 export const getChainId = async () => {

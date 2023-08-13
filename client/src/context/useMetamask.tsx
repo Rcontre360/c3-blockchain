@@ -70,11 +70,6 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       setRegisteredAddressses(allAddresses);
     } catch (err: any) {
       console.log(err.message);
-      toast.error(
-        err.message == "User rejected the request."
-          ? "Please change your network to C3"
-          : err.message,
-      );
     }
   }, []);
 
@@ -138,7 +133,6 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         method: "eth_requestAccounts",
       });
       clearError();
-
       updateWallet(accounts);
     } catch (err: any) {
       setErrorMessage(err.message);

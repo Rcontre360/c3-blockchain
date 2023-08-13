@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { LinkIcon } from "@heroicons/react/24/outline";
 
 interface LayoutDashboardProps {
   sidebarOpen?: boolean;
@@ -73,6 +74,12 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
                       </Fragment>
                     );
                   })}
+                  <Link
+                    href="/app"
+                    className="lg:flex hidden items-center justify-center bg-primary rounded-xl font-bold gap-1 whitespace-nowrap text-sm text-white py-2 px-10"
+                  >
+                    C3 App <LinkIcon className="h-4" />
+                  </Link>
                 </nav>
               </div>
             </div>
